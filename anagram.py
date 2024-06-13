@@ -1,6 +1,7 @@
 from collections import defaultdict 
 from random import choice, shuffle
 from typing import Dict, List
+from math import factorial
 
 class AnagramDictionary:
     def __init__(self):
@@ -24,8 +25,13 @@ class Anagram:
         self.anagram_dictionary = anagram_dictionary or AnagramDictionary().get_dictionary()
         self.difficulty = difficulty
         self.unsolvable = unsolvable
+        # validate difficulty
+        if not self.anagram_dictionary.get(self.difficulty):
+            raise ValueError(f"No dictionary entries for difficulty {self.difficulty}")
         self.puzzle_key = puzzle_key or choice(list(self.anagram_dictionary.get(self.difficulty).keys()))
         self.puzzle = None
+        if self.puzzle_key not in self.anagram_dictionary.get(self.difficulty).keys():
+            raise ValueError(f"puzzle_key '{self.puzzle_key}' not in dictionary ")
         self.answers = self.anagram_dictionary.get(self.difficulty).get(self.puzzle_key)
 
 
