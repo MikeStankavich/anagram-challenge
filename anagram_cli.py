@@ -4,7 +4,14 @@ from anagram import Anagram
 def play_anagram_game():
     print("Hello, let's play the anagram game!")
     
-    difficulty = int(input("Enter the difficulty of the puzzle 1-15: "))
+    difficulty = input("Enter the difficulty of the puzzle 2-15: ")
+    # validate input
+    if not difficulty.isdigit():
+        raise ValueError("Difficulty must be a positive integer.")
+    difficulty = int(difficulty)
+    if difficulty < 2 or difficulty > 15:
+        raise ValueError("Difficulty must be between 2 and 15.")
+
     unsolvable = False
     anagram = Anagram(difficulty=difficulty, unsolvable=unsolvable)
     correct_anagrams = anagram.get_puzzle_answers()
