@@ -62,8 +62,11 @@ class Anagram:
         shuffle(self.puzzle)
         self.puzzle = "".join(self.puzzle)
         # Handle cases where the shuffle is one of the solutions
-        if self.puzzle in self.anagram_dictionary.get(self.difficulty).get(self.puzzle_key):
-            return self.generate_anagram_puzzle()
+        if self.puzzle in self.anagram_dictionary.get(self.difficulty).get(self.puzzle_key):  # isn't this the same as self.answers?
+            # if count of solutions equals factorial of length then all possible solutions are in the dictionary
+            # in that case there's no point in retrying shuffle
+            if len(self.answers) < factorial(len(self.puzzle)):
+                return self.generate_anagram_puzzle()
         return self.puzzle
 
     def generate_unsolvable_puzzle(self) -> str:
